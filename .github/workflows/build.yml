@@ -27,11 +27,11 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 7.0.x
-    - name: Install SetVersion
+    - name: Install dotnet-set-version
       run: dotnet tool install --global dotnet-set-version
     - name: Compute Version
       run: echo "version_number=1.2.${{ github.run_number }}" >> $GITHUB_ENV
-    - name: SetVersion
+    - name: Set Version
       run: dotnet-set-version ${{ env.version_number }}
     - name: Build dotnet-markdown-sample-code
       run: dotnet build dotnet-markdown-sample-code.csproj -c Release
