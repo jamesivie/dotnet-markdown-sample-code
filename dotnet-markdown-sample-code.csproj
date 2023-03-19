@@ -22,6 +22,7 @@
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<DebugType>embedded</DebugType>
 	<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+	<PackageOutputPath>./nupkg</PackageOutputPath>
   </PropertyGroup>
 
 </Project>
