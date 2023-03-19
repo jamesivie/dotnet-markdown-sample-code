@@ -7,7 +7,7 @@
 	<RootNamespace>dotnet_markdown_sample_code</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	<Version>1.1.0</Version>
+	<Version>1.2.0</Version>
 	<Authors>James Ivie</Authors>
 	<Company>James Ivie</Company>
 	<Product>dotnet-markdown-sample-code</Product>
