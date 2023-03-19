@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+	<TargetFrameworks>netcoreapp3.1;net5.0;net6.0;net7.0;</TargetFrameworks>
+	<LangVersion>11.0</LangVersion>
+	<RootNamespace>dotnet_markdown_sample_code</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<Version>1.1.0</Version>
+	<Authors>James Ivie</Authors>
+	<Company>James Ivie</Company>
+	<Product>dotnet-markdown-sample-code</Product>
+	<Description>An MIT-licensed utility program that inserts or updates specially marked-up sample code from a CSharp source file (usually Samples.cs) into specially-marked sections in a markdown file (usually README.md).</Description>
+	<Copyright>2020-2023</Copyright>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<PackageProjectUrl>https://github.com/jamesivie/dotnet-markdown-sample-code</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/jamesivie/dotnet-markdown-sample-code</RepositoryUrl>
+	<EnableNETAnalyzers>True</EnableNETAnalyzers>
+	<PackAsTool>True</PackAsTool>
+	<ToolCommandName>dotnet-markdown-sample-code</ToolCommandName>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<DebugType>embedded</DebugType>
+	<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+  </PropertyGroup>
+
+</Project>
