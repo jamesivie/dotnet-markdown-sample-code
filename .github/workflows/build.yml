@@ -30,12 +30,12 @@ jobs:
     - name: Install SetVersion
       run: dotnet tool install --global dotnet-set-version
     - name: Compute Version
-      run: echo "buildnumber=1.2.${{ github.run_number }}" >> $GITHUB_ENV
+      run: echo "version_number=1.2.${{ github.run_number }}" >> $GITHUB_ENV
     - name: SetVersion
-      run: dotnet-set-version ${{ env.buildnumber }}
+      run: dotnet-set-version ${{ env.version_number }}
     - name: Build dotnet-markdown-sample-code
       run: dotnet build dotnet-markdown-sample-code.csproj -c Release
     - name: Package
       run: dotnet pack dotnet-markdown-sample-code.csproj -c Release
     - name: Publish
-      run: dotnet nuget push ./nupkg/dotnet-markdown-sample-code.${{ env.buildnumber }}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+      run: dotnet nuget push ./nupkg/dotnet-markdown-sample-code.${{ env.version_number }}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
