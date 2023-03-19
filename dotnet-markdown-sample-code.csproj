@@ -13,7 +13,7 @@
 	<Product>dotnet-markdown-sample-code</Product>
 	<Description>An MIT-licensed utility program that inserts or updates specially marked-up sample code from a CSharp source file (usually Samples.cs) into specially-marked sections in a markdown file (usually README.md).</Description>
 	<Copyright>2020-2023</Copyright>
-	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression> 
 	<PackageProjectUrl>https://github.com/jamesivie/dotnet-markdown-sample-code</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/jamesivie/dotnet-markdown-sample-code</RepositoryUrl>
 	<EnableNETAnalyzers>True</EnableNETAnalyzers>
@@ -23,6 +23,11 @@
 	<DebugType>embedded</DebugType>
 	<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
 	<PackageOutputPath>./nupkg</PackageOutputPath>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
+  <ItemGroup>
+	<None Include="README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+	
 </Project>
