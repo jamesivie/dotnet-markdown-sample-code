@@ -1,9 +1,10 @@
 ﻿using dotnet_markdown_sample_code;
 using System.Text.RegularExpressions;
 
-Regex RegionsRegex = new(@"(\s*#region\s+)([^\r\n]+)((.|\r|\n)+?(?=#endregion))", RegexOptions.Compiled);
+int arg = 0;
+if (args.Length > 0 && string.IsNullOrEmpty(args[0].TrimStart('-', '/'))) ++arg;
 
-if (args.Length > 1 && (args[1].StartsWith('-') || args[1].StartsWith('/')) && (args[1].TrimStart('-', '/').ToLowerInvariant() == "help" || args[1].TrimStart('-', '/') == "?"))
+if (args.Length > arg && (args[arg].StartsWith('-') || args[arg].StartsWith('/')) && (args[arg].TrimStart('-', '/').ToLowerInvariant() == "help" || args[arg].TrimStart('-', '/') == "?"))
 {
     Console.WriteLine("dotnet-markdown-sample-code usage:");
     Console.WriteLine("  dotnet-markdown-sample-code [source [dest [language [timeout]]]]");
@@ -14,10 +15,12 @@ if (args.Length > 1 && (args[1].StartsWith('-') || args[1].StartsWith('/')) && (
     Console.WriteLine("");
     return;
 }
-string sourceFile = (args.Length > 1 ? args[1] : "Samples.cs");
-string targetFile = (args.Length > 2 ? args[2] : "README.md");
-string markDownLanguageSpecifier = (args.Length > 3 ? args[3] : "csharp");
-string timeout = (args.Length > 4 ? args[4] : "");
+Regex RegionsRegex = new(@"(\s*#region\s+)([^\r\n]+)((.|\r|\n)+?(?=#endregion))", RegexOptions.Compiled);
+
+string sourceFile = (args.Length > arg ? args[arg] : "Samples.cs");
+string targetFile = (args.Length > arg + 1 ? args[arg + 1] : "README.md");
+string markDownLanguageSpecifier = (args.Length > arg + 2 ? args[arg + 2] : "csharp");
+string timeout = (args.Length > arg + 3 ? args[arg + 3] : "");
 int timeoutSeconds = string.IsNullOrEmpty(timeout) ? 30 : int.Parse(timeout);
 Console.Write($"Updating {targetFile} from {sourceFile}...");
 string baseFolder = Directory.GetCurrentDirectory();
