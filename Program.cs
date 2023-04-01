@@ -5,13 +5,16 @@ Regex RegionsRegex = new(@"(\s*#region\s+)([^\r\n]+)((.|\r|\n)+?(?=#endregion))"
 
 string sourceFile = (args.Length > 1 ? args[1] : "Samples.cs");
 string targetFile = (args.Length > 2 ? args[2] : "README.md");
+string markDownLanguageSpecifier = (args.Length > 3 ? args[3] : "csharp");
 string timeout = (args.Length > 4 ? args[4] : "");
 int timeoutSeconds = string.IsNullOrEmpty(timeout) ? 30 : int.Parse(timeout);
 Console.WriteLine($"Updating {targetFile} from {sourceFile}...");
 string baseFolder = Directory.GetCurrentDirectory();
 string sourceFileFullPath = Path.Combine(baseFolder, sourceFile);
 string targetFileFullPath = Path.Combine(baseFolder, targetFile);
-for (DateTime startTime = DateTime.UtcNow; (DateTime.UtcNow - startTime) < TimeSpan.FromSeconds(timeoutSeconds);)
+int attempt = 0;
+DateTime startTime = DateTime.UtcNow;
+do
 {
     try
     {
@@ -22,7 +25,7 @@ for (DateTime startTime = DateTime.UtcNow; (DateTime.UtcNow - startTime) < TimeS
         {
             string regionName = match.Groups[2].Value;
             string regionContents = match.Groups[3].Value.Trim();
-            string targetInsert = $"[//]: # ({regionName})\r\n```csharp\r\n{regionContents}\r\n```";
+            string targetInsert = $"[//]: # ({regionName})\r\n```{markDownLanguageSpecifier}\r\n{regionContents}\r\n```";
             string targetReplacePattern = @"\[\/\/\]\:\s*\#\s*\(" + regionName + @"\).*[\r\n]```[^\r\n]*(.|\r|\n)+?(?=```)```";
             targetFileContents = Regex.Replace(targetFileContents, targetReplacePattern, targetInsert);
         }
@@ -33,11 +36,17 @@ for (DateTime startTime = DateTime.UtcNow; (DateTime.UtcNow - startTime) < TimeS
     }
     catch (Exception ex)
     {
-        Console.WriteLine($"Error updating {targetFile} from {sourceFile}: {ex.Message}\r\nRetrying in a bit...");
-        System.Threading.Thread.Sleep(250 + (int)(TickBasedRandom.GetRandom() % 250));
+        // timeout?
+        if ((DateTime.UtcNow - startTime) > TimeSpan.FromSeconds(timeoutSeconds))
+        {
+            Console.WriteLine($"Timeout updating {targetFile} from {sourceFile}: {ex.Message}");
+            break;
+        }
+        else if (attempt > 2) Console.WriteLine($"Error updating {targetFile} from {sourceFile}: {ex.Message}\r\nRetrying in a bit...");
+        System.Threading.Thread.Sleep((1 << attempt) * 250 + (int)(TickBasedRandom.GetRandom() % 250));
         // fall through and retry
     }
-}
+} while (true);
 /* Source Powershell:
 # NOTE: you may have to run this the first time you build:
 # Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
