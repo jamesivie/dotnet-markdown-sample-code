@@ -2,7 +2,7 @@
 
 [dotnet-markdown-sample-code](https://github.com/jamesivie/dotnet-markdown-sample-code) allows users to copy sample code that is actually compiled and optionally also tested from a source code file into specially-marked sections in a markdown file, ensuring that sample code will not have syntax errors, and if called from tests, also ensures that the code works as intended.
 
-## Usage
+## Direct Usage
 `dotnet-markdown-sample-code [source [dest [language [timeout]]]]`
 
 - `source` is the relative or full path to the source code from which samples should be extracted (default is Samples.cs)
@@ -31,6 +31,15 @@ Code to place into the Readme file is identified by `#region`/`#endregion` marke
 
 For each region in the sample file, the corresponding Readme section is searched for, the current contents are removed (everything between and including the first two lines starting with triple-backtick), and everything between the `#region` and `#endregion` markers is put into that position in the Readme.
 
+## Samples Projects
+If you have a sibling project containing sample code that may be compiled and/or tested, with the applicable sample code in Samples.cs at the tope level of the project
+and README.md one folder up (in the solution folder), add the following code to that project's project file:
+
+	```xml
+	  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		  <Exec Command="dotnet-markdown-sample-code -- Samples.cs ../README.md" />
+	  </Target>
+	.```
 
 ## Global Installation
 
