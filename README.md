@@ -35,9 +35,11 @@ For each region in the sample file, the corresponding Readme section is searched
 If you have a sibling project containing sample code that may be compiled and/or tested, with the applicable sample code in Samples.cs at the tope level of the project
 and README.md one folder up (in the solution folder), add the following code to that project's project file:
 
+```xml
 <Target Name="PostBuild" AfterTargets="PostBuildEvent">
 	<Exec Command="dotnet-markdown-sample-code -- Samples.cs ../README.md" />
 </Target>
+```
 
 ## Global Installation
 
