@@ -30,3 +30,15 @@ Code to place into the Readme file is identified by `#region`/`#endregion` marke
     #endregion
 
 For each region in the sample file, the corresponding Readme section is searched for, the current contents are removed (everything between and including the first two lines starting with triple-backtick), and everything between the `#region` and `#endregion` markers is put into that position in the Readme.
+
+
+## Global Installation
+
+`dotnet tool install --global dotnet-markdown-sample-code --version <tool_version>`
+
+## Local Installation
+
+`dotnet new tool-manifest # if you are setting up this repo`
+`dotnet tool install --local dotnet-markdown-sample-code --version <tool_version>`
+
+
