@@ -18,9 +18,9 @@ jobs:
     - name: Install dotnet-set-version
       run: dotnet tool install --global dotnet-set-version
     - name: Compute Version
-      run: echo "version_number=1.2.${{ github.run_number }}" ${{ github.sha }}>> $GITHUB_ENV
+      run: echo "version_number=1.2.${{ github.run_number }}">> $GITHUB_ENV
     - name: Set Version
-      run: dotnet-set-version ${{ env.version_number }}
+      run: dotnet-set-version ${{ env.version_number }} ${{ github.sha }}
     - name: Build dotnet-markdown-sample-code
       run: dotnet build dotnet-markdown-sample-code.csproj -c Release
     - name: Package
